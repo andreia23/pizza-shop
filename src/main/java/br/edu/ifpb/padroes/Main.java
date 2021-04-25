@@ -11,28 +11,24 @@ import br.edu.ifpb.padroes.service.PizzaShopService;
 
 public class Main {
 
-    public static void main(String[] args) {
+	public static void main(String[] args) {
 
-        PizzaShopService pizzaShopService = new PizzaShopService();
+		PizzaShopService pizzaShopService = new PizzaShopService();
 
-        System.out.println("Pizzas - menu");
+		System.out.println("Pizzas - menu");
 
-        // TODO - implementar adapter para juntar as pizzas da PizzaHot e Damenos em um único conjunto
-        for (PizzaHotPizza pizza : pizzaShopService.getPizzasPizzaHot()) {
-            System.out.println(String.format("%s - %.2f", pizza.getTopping(), pizza.getPrice()));
-        }
-        for (DamenosPizza pizza : pizzaShopService.getPizzasDamenos()) {
-            System.out.println(String.format("%s - %.2f", pizza.getName(), pizza.getCost()));
-        }
+		for (Pizza pizza : pizzaShopService.getPizzas()) {
+			System.out.println(String.format("%s - %.2f", pizza.getName(), pizza.getPrice()));
+		}
 
-        Pizza pizza = new PizzaShopPizza("pepperoni", 55.0f);
+		Pizza pizza = new PizzaShopPizza("pepperoni", 55.0f);
 
-        Pizza discountCoupon = new DiscountDecorator(pizza);
-        Pizza extraCheese = new ExtraDecorator(discountCoupon);
-        Pizza stuffedCrust = new StuffedDecorator(extraCheese);
-        
-        pizzaShopService.orderPizza(pizza);
+		Pizza discountCoupon = new DiscountDecorator(pizza);
+		Pizza extraCheese = new ExtraDecorator(discountCoupon);
+		Pizza stuffedCrust = new StuffedDecorator(extraCheese);
 
-    }
+		pizzaShopService.orderPizza(stuffedCrust);
+
+	}
 
 }

@@ -6,7 +6,7 @@ import java.util.List;
 import br.edu.ifpb.padroes.api.pizzahot.PizzaHotPizza;
 import br.edu.ifpb.padroes.api.pizzahot.PizzaHotServiceImpl;
 
-// TODO - implementar proxy de cache para evitar leitura do json a cada chamada do método
+
 public class PizzaHotServiceProxy implements PizzaHotService {
 	
 	PizzaHotService pizzaHotService;
