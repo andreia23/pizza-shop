@@ -12,58 +12,35 @@ import java.util.List;
 
 public class PizzaShopService {
 
-    private DamenosService damenosService;
-    private PizzaHotService pizzaHotService;
+	private DamenosService damenosService;
+	private PizzaHotService pizzaHotService;
 
-    public PizzaShopService() {
-        // TODO - alterar criação de instância para chamar para o Proxy de Cache
-        damenosService = new DamenosServiceImpl();
-        pizzaHotService = new PizzaHotServiceImpl();
-    }
+	public PizzaShopService() {
+		// TODO - alterar criação de instância para chamar para o Proxy de Cache
+		damenosService = new DamenosServiceImpl();
+		pizzaHotService = new PizzaHotServiceImpl();
+	}
 
-    // TODO - implementar decorator para não precisar atributos da pizza como parâmetros no método
-    public void orderPizza(Pizza pizza, boolean discountCoupon, boolean extraCheese, boolean panPizza, boolean stuffedCrust) {
+	public void orderPizza(Pizza pizza) {
 
-        Float totalPrice = pizza.getPrice();
-        String name = pizza.getName();
+		Float totalPrice = pizza.getPrice();
+		String name = pizza.getName();
 
-        // cupom de desconto
-        if (discountCoupon) {
-            totalPrice *= 0.25f; // 25% discount
-        }
+		System.out.println(String.format("New order for = %s", name));
+		System.out.println(String.format("Total price = %f", totalPrice));
 
-        // queijo extra
-        if (extraCheese) {
-            totalPrice *= 1.10f; // 10% increase
-            name += " (extra cheese)";
-        }
+	}
 
-        // massa pan
-        if (panPizza) {
-            totalPrice *= 1.15f; // 15% increase
-            name += " (pan pizza)";
-        }
+	// TODO - implementar adapter para unificar pizzas vindas das APIs Damenos e
+	// PizzaHot num único método getPizzas()
+	// TODO - public List<Pizza> getPizzas() {}
 
-        // borda recheada
-        if (stuffedCrust) {
-            totalPrice *= 1.20f; // 20% increase
-            name += " (stuffed crust)";
-        }
+	public List<DamenosPizza> getPizzasDamenos() {
+		return damenosService.getPizzas();
+	}
 
-        System.out.println(String.format("New order for = %s", name));
-        System.out.println(String.format("Total price = %f", totalPrice));
-
-    }
-
-    // TODO - implementar adapter para unificar pizzas vindas das APIs Damenos e PizzaHot num único método getPizzas()
-    // TODO - public List<Pizza> getPizzas() {}
-
-    public List<DamenosPizza> getPizzasDamenos() {
-        return damenosService.getPizzas();
-    }
-
-    public List<PizzaHotPizza> getPizzasPizzaHot() {
-        return pizzaHotService.getPizzas();
-    }
+	public List<PizzaHotPizza> getPizzasPizzaHot() {
+		return pizzaHotService.getPizzas();
+	}
 
 }
